@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.stream.IntStream;
+import jakarta.xml.bind.DatatypeConverter;
+
+
 @RestController
 public class LogController {
     Random random = new Random();
@@ -104,4 +110,30 @@ public class LogController {
         );
         return "주문 로그 1행 기록됨";
     }
+
+
+
+    @GetMapping("/hash/{input}")
+    public String getDigest(@PathVariable("input") String input) throws NoSuchAlgorithmException {
+        for (int i = 0; i < 100_000; i++) {
+            input = getMD5Digest(input);
+        }
+        return input;
+    }
+
+    private String getMD5Digest(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(input.getBytes());
+        byte[] digest = md.digest();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
+
+
+
+
+
+
+
+    
 }
