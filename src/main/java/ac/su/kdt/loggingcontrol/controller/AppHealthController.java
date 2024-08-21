@@ -17,7 +17,14 @@ public class AppHealthController {
     public String healthCheck() {
         return "app_health_status 1.0\n# EOF";
     }
+    
+    
+    @GetMapping("/pop")
+    public String popcheck() {
+        return "poppop";
+    }
 
+    
     @RequestMapping("/hash/{input}")
     public String getDigest(@PathVariable("input") String input) throws NoSuchAlgorithmException {
         for(int i = 0; i < 100_000; i++) {
